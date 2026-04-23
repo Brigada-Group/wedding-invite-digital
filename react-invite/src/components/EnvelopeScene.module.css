@@ -1,0 +1,75 @@
+.scene {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+}
+
+.frameTop,
+.frameBottom {
+  position: absolute;
+  width: min(380px, 65vw);
+  height: auto;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.frameTop { top: 0; left: 0; }
+.frameBottom { bottom: 0; right: 0; }
+
+.wrapper {
+  position: relative;
+  width: min(520px, 92vw);
+  z-index: 1;
+}
+
+.interior {
+  position: absolute;
+  top: 2%;
+  bottom: 15%;
+  width: 100%;
+  background: rgba(15, 10, 10, 0.9);
+  z-index: 0;
+}
+
+.bottom {
+  width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+.flap {
+  position: absolute;
+  top: 1px;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.flapImg {
+  width: 100%;
+  height: auto;
+  display: block;
+  backface-visibility: hidden;
+}
+
+.prompt {
+  display: block;
+  text-align: center;
+  margin-top: 28px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--charcoal-light);
+  z-index: 3;
+}

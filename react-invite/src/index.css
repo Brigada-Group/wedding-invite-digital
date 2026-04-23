@@ -1,0 +1,46 @@
+:root {
+  --white: #FFFFFF;
+  --off-white: #FFF9F9;
+  --pink: #E8B4B8;
+  --pink-light: #F2D0D3;
+  --pink-dark: #C4878C;
+  --blush: #FDF2F3;
+  --charcoal: #3A2F2F;
+  --charcoal-light: #6B5A5A;
+  --shadow: rgba(60, 40, 40, 0.1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { height: 100%; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--white);
+  color: var(--charcoal);
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body.scrollable {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(232, 180, 184, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(232, 180, 184, 0.06) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#root {
+  height: 100%;
+}

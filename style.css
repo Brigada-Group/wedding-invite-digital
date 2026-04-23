@@ -1,0 +1,901 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500&display=swap');
+
+:root {
+  --white: #F7F2EC;
+  --off-white: #FFF9F9;
+  --pink: #E8B4B8;
+  --pink-light: #F2D0D3;
+  --pink-dark: #C4878C;
+  --blush: #FDF2F3;
+  --charcoal: #3A2F2F;
+  --charcoal-light: #6B5A5A;
+  --shadow: rgba(60, 40, 40, 0.1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--white);
+  color: var(--charcoal);
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ─── Background atmosphere ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(232, 180, 184, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(232, 180, 184, 0.06) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ═══════════════════════════════════════════════
+   ENVELOPE SCENE
+   ═══════════════════════════════════════════════ */
+
+.envelope-scene {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  perspective: 1200px;
+  transition: opacity 0.8s ease, visibility 0s linear 0.8s;
+  overflow: hidden;
+}
+
+.envelope-scene.fading {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.envelope-scene.hidden {
+  visibility: hidden;
+  display: none;
+}
+
+/* ─── Flower frames ─── */
+.frame-top,
+.frame-bottom {
+  position: absolute;
+  width: min(380px, 65vw);
+  height: auto;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.frame-top {
+  top: 0;
+  left: 0;
+}
+
+.frame-bottom {
+  bottom: 0;
+  right: 0;
+}
+
+.envelope-wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Hover lift — desktop only */
+@media (hover: hover) {
+  .envelope-wrapper:not(.opened):hover {
+    transform: translateY(-4px);
+  }
+}
+
+/* ─── Envelope stage (fallback image + generated video) ─── */
+.envelope-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.envelope-fallback,
+.envelope-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.envelope-fallback {
+  z-index: 1;
+}
+
+.envelope-video {
+  z-index: 2;
+  background: transparent;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.envelope-stage.intro-playing #envelopeIntro,
+.envelope-stage.intro-playing #envelopeIntro {
+  opacity: 1;
+}
+
+/* (Whole envelope scene fade is handled by the pre-existing `.envelope-scene.fading` rule) */
+
+/* ─── Tap prompt ─── */
+.tap-prompt {
+  position: absolute;
+  left: 50%;
+  bottom: 38px;
+  transform: translateX(-50%);
+  text-align: center;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--charcoal-light);
+  animation: pulse-fade 2.8s ease-in-out infinite;
+  z-index: 3;
+}
+
+.envelope-wrapper.opened .tap-prompt {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  animation: none;
+}
+
+@keyframes pulse-fade {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+
+/* ═══════════════════════════════════════════════
+   GOLD FLOATING PARTICLES (now pink-tinted)
+   ═══════════════════════════════════════════════ */
+
+.gold-particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99;
+  overflow: hidden;
+}
+
+.gp {
+  position: absolute;
+  bottom: -10px;
+  background: var(--pink-light);
+  border-radius: 50%;
+}
+
+@keyframes float-up {
+  0% {
+    transform: translateX(0) translateY(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--opacity);
+  }
+  90% {
+    opacity: var(--opacity);
+  }
+  100% {
+    transform: translateX(var(--drift)) translateY(-100vh);
+    opacity: 0;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   INVITATION OVERLAY
+   ═══════════════════════════════════════════════ */
+
+.invitation-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--white);
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0.8s;
+}
+
+.invitation-overlay.visible {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0s;
+}
+
+.invitation-overlay::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(232, 180, 184, 0.07) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(232, 180, 184, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.invitation-content {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 0 40px;
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ─── Heritage-style section recipe ─── */
+.invite-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 56px 24px;
+}
+
+.invite-section:first-child {
+  padding-top: 56px;
+}
+
+.invite-section + .invite-section {
+  border-top: 1px solid rgba(232, 180, 184, 0.18);
+}
+
+.invite-section .overline {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--pink);
+  margin-bottom: 18px;
+  display: block;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.invitation-overlay.visible .invite-section .overline {
+  animation: fade-up 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.invite-section .section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(30px, 8vw, 46px);
+  font-weight: 300;
+  color: var(--charcoal);
+  line-height: 1.15;
+  margin: 0 0 14px;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.invitation-overlay.visible .invite-section .section-title {
+  animation: fade-up 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.1s forwards;
+}
+
+.invite-section .section-sub {
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--charcoal-light);
+  letter-spacing: 0.05em;
+  margin: 0 0 16px;
+}
+
+.invite-section .ornament {
+  display: block;
+  font-size: 16px;
+  color: var(--pink);
+  opacity: 0;
+  transform: scale(0.6);
+  margin: 8px 0 28px;
+  letter-spacing: 0.4em;
+}
+
+.invite-section .ornament.small {
+  font-size: 12px;
+  margin: 6px 0 24px;
+}
+
+.invitation-overlay.visible .invite-section .ornament {
+  animation: ornament-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.25s forwards;
+}
+
+@keyframes ornament-in {
+  to { opacity: 0.7; transform: scale(1); }
+}
+
+/* ─── Footer hashtag (Heritage-style sign-off) ─── */
+.footer-note .hashtag {
+  display: block;
+  margin-top: 18px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--pink-dark);
+  opacity: 0;
+}
+
+.invitation-overlay.visible .hashtag {
+  animation: fade-up 0.7s ease 3.6s forwards;
+}
+
+/* ─── Hero photo (image → intro video → looped idle video) ─── */
+.hero-photo {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  margin-bottom: 28px;
+  border-radius: 12px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  aspect-ratio: 1024 / 1536;
+  background: var(--blush);
+}
+
+.invitation-overlay.visible .hero-photo {
+  animation: fade-up 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.1s forwards;
+}
+
+.hero-photo .hero-fallback,
+.hero-photo .hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-photo .hero-fallback {
+  z-index: 1;
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+
+.hero-photo .hero-video {
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+.hero-photo.intro-playing .hero-intro {
+  opacity: 1;
+}
+
+.hero-photo.intro-playing .hero-fallback {
+  opacity: 0;
+}
+
+/* (top-line removed — overline now serves that role) */
+
+/* ─── Monogram ─── */
+.monogram {
+  width: 90px;
+  height: 90px;
+  border: 1.5px solid var(--pink);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 36px;
+  opacity: 0;
+  transform: scale(0.5) rotate(-10deg);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.invitation-overlay.visible .monogram {
+  animation: monogram-in 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s forwards;
+}
+
+/* Shimmer ring around monogram */
+.monogram::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  background: conic-gradient(from 0deg, transparent 0%, var(--pink-light) 25%, transparent 50%) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  animation: none;
+}
+
+.invitation-overlay.visible .monogram::after {
+  animation: shimmer-ring 3s linear 1.5s infinite;
+}
+
+@keyframes monogram-in {
+  to { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+@keyframes shimmer-ring {
+  from { opacity: 0.4; transform: rotate(0deg); }
+  to { opacity: 0.4; transform: rotate(360deg); }
+}
+
+.monogram span {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--pink-dark);
+  letter-spacing: 0.02em;
+}
+
+/* ─── Family greeting ─── */
+.family-greeting {
+  text-align: center;
+  margin-bottom: 12px;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.invitation-overlay.visible .family-greeting {
+  animation: fade-up 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.9s forwards;
+}
+
+.family-greeting .label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--pink);
+  margin-bottom: 14px;
+  display: block;
+}
+
+.family-greeting .family-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 10vw, 60px);
+  font-weight: 300;
+  color: var(--charcoal);
+  line-height: 1.1;
+  display: block;
+}
+
+.family-greeting .invited-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(20px, 4.5vw, 28px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--charcoal-light);
+  margin-top: 12px;
+  display: block;
+}
+
+@keyframes fade-up {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* (dividers replaced by .ornament elements — see section recipe above) */
+
+/* ─── Couple section ─── */
+.couple-section {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.invitation-overlay.visible .couple-section {
+  animation: fade-up 0.8s cubic-bezier(0.23, 1, 0.32, 1) 1.4s forwards;
+}
+
+.couple-section .couple-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(40px, 11vw, 66px);
+  font-weight: 300;
+  color: var(--charcoal);
+  line-height: 1.15;
+}
+
+/* Each name slides in from opposite sides */
+.name-animate {
+  display: inline-block;
+  opacity: 0;
+}
+
+.invitation-overlay.visible .name-animate:first-child {
+  animation: slide-from-left 0.7s cubic-bezier(0.23, 1, 0.32, 1) 1.5s forwards;
+}
+
+.invitation-overlay.visible .name-animate:last-child {
+  animation: slide-from-right 0.7s cubic-bezier(0.23, 1, 0.32, 1) 1.7s forwards;
+}
+
+@keyframes slide-from-left {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slide-from-right {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.couple-section .ampersand {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(26px, 6vw, 38px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--pink);
+  margin: 8px 0;
+  opacity: 0;
+}
+
+.invitation-overlay.visible .ampersand {
+  animation: amp-spin-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1.6s forwards;
+}
+
+@keyframes amp-spin-in {
+  from { opacity: 0; transform: rotate(-180deg) scale(0.5); }
+  to { opacity: 1; transform: rotate(0deg) scale(1); }
+}
+
+/* ─── Details section ─── */
+.details-section {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.invitation-overlay.visible .details-section {
+  animation: fade-up 0.8s cubic-bezier(0.23, 1, 0.32, 1) 2s forwards;
+}
+
+/* Staggered detail rows */
+.invitation-overlay.visible .anim-item:nth-child(1) {
+  animation: detail-pop 0.5s ease 2.2s both;
+}
+.invitation-overlay.visible .anim-item:nth-child(2) {
+  animation: detail-pop 0.5s ease 2.4s both;
+}
+.invitation-overlay.visible .anim-item:nth-child(3) {
+  animation: detail-pop 0.5s ease 2.6s both;
+}
+
+@keyframes detail-pop {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.detail-row {
+  margin-bottom: 24px;
+}
+
+.detail-row:last-child {
+  margin-bottom: 0;
+}
+
+.detail-row .detail-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--pink);
+  margin-bottom: 6px;
+}
+
+.detail-row .detail-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(22px, 5.5vw, 34px);
+  font-weight: 400;
+  color: var(--charcoal);
+  line-height: 1.3;
+}
+
+.detail-row .detail-sub {
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--charcoal-light);
+  margin-top: 4px;
+}
+
+/* ─── Countdown Timer ─── */
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: clamp(12px, 4vw, 24px);
+  margin: 0;
+}
+
+.countdown-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: clamp(56px, 16vw, 80px);
+  padding: 14px 8px;
+  border: 1px solid var(--pink-light);
+  border-radius: 10px;
+  background: var(--off-white);
+}
+
+.countdown-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 7vw, 42px);
+  font-weight: 400;
+  color: var(--charcoal);
+  line-height: 1;
+}
+
+.countdown-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--pink-dark);
+  margin-top: 6px;
+}
+
+/* ─── Action Buttons ─── */
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 320px;
+  margin: 32px auto 0;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 15px 24px;
+  border-radius: 50px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background: var(--pink);
+  color: var(--white);
+  border: none;
+  box-shadow: 0 4px 16px rgba(232, 180, 184, 0.4);
+}
+
+.btn-primary:hover {
+  background: var(--pink-dark);
+  box-shadow: 0 6px 20px rgba(196, 135, 140, 0.4);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--pink-dark);
+  border: 1.5px solid var(--pink);
+}
+
+.btn-outline:hover {
+  background: var(--blush);
+}
+
+/* ─── Scroll reveal ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Map section ─── */
+.map-section {
+  width: 100%;
+  max-width: 480px;
+  margin-top: 8px;
+}
+
+/* ─── Venue image ─── */
+.venue-image-container {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(232, 180, 184, 0.25);
+  box-shadow: 0 4px 24px var(--shadow);
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.venue-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  max-height: 280px;
+}
+
+.venue-image-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px 16px 12px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 0%, transparent 100%);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+}
+
+.map-container {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(232, 180, 184, 0.25);
+  box-shadow: 0 4px 24px var(--shadow);
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: saturate(0.85) contrast(1.03);
+}
+
+/* ─── Footer ─── */
+.footer-note {
+  text-align: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.footer-note p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--charcoal-light);
+  line-height: 1.6;
+}
+
+.footer-note .hearts {
+  display: block;
+  margin-top: 14px;
+  font-size: 15px;
+  color: var(--pink);
+  letter-spacing: 0.4em;
+  opacity: 0;
+}
+
+.invitation-overlay.visible .hearts {
+  animation: hearts-pulse 0.6s ease 3.5s forwards;
+}
+
+@keyframes hearts-pulse {
+  0% { opacity: 0; transform: scale(0.5); }
+  50% { transform: scale(1.2); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* ─── Corner flourishes ─── */
+.corner-flourish {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 101;
+}
+
+.invitation-overlay.visible .corner-flourish {
+  animation: corner-draw 0.6s ease 3.4s forwards;
+}
+
+@keyframes corner-draw {
+  from { opacity: 0; transform: scale(0.3); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.corner-flourish::before,
+.corner-flourish::after {
+  content: '';
+  position: absolute;
+  background: var(--pink-light);
+  opacity: 0.3;
+}
+
+.corner-flourish.top-left { top: 16px; left: 16px; }
+.corner-flourish.top-left::before { top: 0; left: 0; width: 30px; height: 1px; }
+.corner-flourish.top-left::after { top: 0; left: 0; width: 1px; height: 30px; }
+
+.corner-flourish.top-right { top: 16px; right: 16px; }
+.corner-flourish.top-right::before { top: 0; right: 0; width: 30px; height: 1px; }
+.corner-flourish.top-right::after { top: 0; right: 0; width: 1px; height: 30px; }
+
+.corner-flourish.bottom-left { bottom: 16px; left: 16px; }
+.corner-flourish.bottom-left::before { bottom: 0; left: 0; width: 30px; height: 1px; }
+.corner-flourish.bottom-left::after { bottom: 0; left: 0; width: 1px; height: 30px; }
+
+.corner-flourish.bottom-right { bottom: 16px; right: 16px; }
+.corner-flourish.bottom-right::before { bottom: 0; right: 0; width: 30px; height: 1px; }
+.corner-flourish.bottom-right::after { bottom: 0; right: 0; width: 1px; height: 30px; }
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════ */
+
+@media (max-width: 380px) {
+  .invite-section {
+    padding: 44px 18px;
+  }
+
+  .monogram {
+    width: 72px;
+    height: 72px;
+    margin-bottom: 28px;
+  }
+
+  .monogram span {
+    font-size: 22px;
+  }
+
+  .corner-flourish {
+    display: none;
+  }
+
+  .frame-top,
+  .frame-bottom {
+    width: 55vw;
+  }
+}
+
+@media (min-width: 768px) {
+  .invite-section {
+    padding: 72px 32px;
+  }
+}

@@ -1,0 +1,39 @@
+# OS
+.DS_Store
+
+# Editor / tooling
+.vscode/
+.idea/
+*.swp
+
+# Dev caches
+.playwright-mcp/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json.lock
+
+# React subproject build output
+react-invite/dist/
+react-invite/.vite/
+
+# Generation artifacts (regenerated from source — not shipped)
+scripts/envelope-*.png
+scripts/main-intro-last-frame.png
+scripts/heritage-*.png
+scripts/envelope-portrait.png
+
+# Third-party reference material (Heritage theme) — do not commit
+scripts/reference-*
+
+# Logs
+*.log
+fal-*.log
+
+# Secrets — never commit API keys
+.env
+.env.*
+!.env.example
