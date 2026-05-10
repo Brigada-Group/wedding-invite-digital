@@ -1,32 +1,326 @@
 // ─── Family ID mapping ───
-// Share personalized links: yoursite.com/#familyId
+// Share personalized links: yoursite.com/#family-slug
 const FAMILIES = {
-  'gashi':    'Gashi',
-  'hoxha':    'Hoxha',
-  'krasniqi': 'Krasniqi',
-  'berisha':  'Berisha',
-  'shala':    'Shala',
-  'ramadani': 'Ramadani',
-  'mustafa':  'Mustafa',
-  'ahmeti':   'Ahmeti',
-  // Add more: 'id': 'Mbiemri',
+  'halla-kadire': {
+    name: 'Halla Kadire',
+    members: ['Halla Kadire', 'Bahtiri', 'Naseri', 'Sara', 'Aferdita', 'Ganja', 'Luta', 'Mihanja'],
+  },
+  'bahrija': {
+    name: 'Bahrija',
+    members: ['Afrimi', 'Bahrija'],
+  },
+  'mihanja': {
+    name: 'Mihanja',
+    members: ['Ramadan', 'Mihanja'],
+  },
+  'halla-nif': {
+    name: 'Halla Nif',
+    members: ['Halla Nif', 'Mesudi', 'Sheribani', 'Rinesa', 'Fitorja', 'Mihanja', 'Mirveti', 'Zyrafeti', 'Sahadeti', 'Liria', 'Hidajeti', 'Luljeta', 'Shkurta'],
+  },
+  'halla-raz': {
+    name: 'Halla Raz',
+    members: ['Halla Raz', 'Blerimi', 'Zoja', 'Parimi', 'Mihanja', 'Havushi', 'Xemi', 'Dona', 'Niti', 'Diona'],
+  },
+  'agroni': {
+    name: 'Agroni',
+    members: ['Agroni', 'Aferdita'],
+  },
+  'dritoni': {
+    name: 'Dritoni',
+    members: ['Dritoni', 'Ajna', 'Olti'],
+  },
+  'maliqi': {
+    name: 'Maliqi',
+    members: ['Maliqi', 'Dona'],
+  },
+  'zbulimi': {
+    name: 'Zbulimi',
+    members: ['Zbulimi', 'Drita'],
+  },
+  'qendresa': {
+    name: 'Qendresa',
+    members: ['Arsimi', 'Qendresa'],
+  },
+  'halla-nizaqet': {
+    name: 'Halla Nizaqet',
+    members: ['Halla Nizaqet', 'Lenti', 'Valdrina',  'Blerina'],
+  },
+  'tina': {
+    name: 'Tina',
+    members: ['Arlind', 'Tina']
+  },
+  'adelina': {
+    name: 'Adelina',
+    members: ['Alban', 'Adelina']
+  },
+  'mergime': {
+    name: 'Mergime',
+    members: ['Defrim', 'Mergime']
+  },
+  'daja-ibrahim': {
+    name: 'Daja Ibrahim',
+    members: ['Daja Ibrahim', 'Bajra', 'Alisa', 'Dini', 'Adisa'],
+  },
+  'adisa': {
+    name: 'Adisa',
+    members: ['Ramzo', 'Adisa'],
+  },
+  'asmiri': {
+    name: 'Asmiri',
+    members: ['Asmiri', 'Amra', 'Amar']
+  },
+  'daja-islam': {
+    name: 'Daja Islam',
+    members: ['Daja Islam', 'Safeti', 'Arbeni', 'Dona', 'Avdyli', 'Linda me bashkeshort', 'Lindita me bashkeshort'],
+  },
+  'arsim': {
+    name: 'Arsimi',
+    members: ['Arsimi', 'Nina', 'Xhemka'],
+  },
+  'naseri':{
+    name: 'Naseri',
+    members: ["Naseri", "Ajsella", "Azemina", "Leo"]
+  },
+  'ymeri': {
+    name: 'Ymeri',
+    members: ["Ymeri", "Ajsha", "Dion"]
+  },
+  'gazmendi': {
+    name: 'Gazmendi',
+    members: ['Tezja Shukri', 'Gazmendi', 'Linda', 'Sabian', 'Edi'],
+  },
+  'nasidi': {
+    name: 'Nasidi',
+    members: ['Nasidi', 'Pranvera', 'Lona', 'Tina'],
+  },
+  'astriti': {
+    name: 'Astriti',
+    members: ['Astriti', 'Vildanja', 'Eduardi'],
+  },
+  'frasheri': {
+    name: 'Frasheri',
+    members: ['Frasheri', 'Xhemile'],
+  },
+  'malsore': {
+    name: 'Malsore',
+    members: ['Qendrim', "Malsore"],
+  },
+  'korabi': {
+    name: 'Korabi',
+    members: ['Korabi', 'Antigona'],
+  },
+  'bardhosh': {
+    name: 'Bardhosh',
+    members: ['Bardhosh', 'Lona'],
+  },
+  'ardi': {
+    name: 'Ardi',
+    members: ['Ardi', 'Saranda'],
+  },
+  'enisi': {
+    name: 'Enisi',
+    members: ['Enisi', 'Arjeta', 'Albina'],
+  },
+  'besniki': {
+    name: 'Besniki',
+    members: ['Babuli', 'Besniki', 'Blerta'],
+  }, 
+  'agroni-xhaferi': {
+    name: 'Agroni',
+    members: ['Agroni', 'Hana', 'Merisa']
+  },
+  'vjosa': {
+    name: 'Vjosa',
+    members: ['Blini', 'Vjosa']
+  },
+  'medina': {
+    name: 'Medina',
+    members: ['Arber', 'Medina']
+  },
+  'arditi': {
+    name: 'Arditi',
+    members: ['Arditi', 'Yllka']
+  },
+  'besimi': {
+    name: 'Besimi',
+    members: ['Besimi', 'Drita', 'Besniki (me gru)', 'Besiani (me gru)'],
+  },
+  'bucki': {
+    name: 'bucki',
+    members: ['Bucki', 'Mersia', 'Tada'],
+  },
+  'baci-sabri': {
+    name: 'Baci Sabri',
+    members: ['Baci Sabri', 'Hyra', 'Amiri', 'Me gru'],
+  },
+  'qamili': {
+    name: 'Qamili',
+    members: ['Qamili', 'Me gru'],
+  },
+  'adili': {
+    name: 'Adili',
+    members: ['Adili', 'Me gru'],
+  },
+  'daja-jakup': {
+    name: 'Daja Jakup',
+    members: ['Daja Jakup', 'Hamidja', 'Flakroni', 'Kaltrina', 'Xoni', 'Lironi'],
+  },
+  'pimi':{
+    name: "Pimi",
+    members: ["Pimi"],
+  },
+  'januzi':{
+    name: 'Januzi',
+    members: ['Januzi', 'Valbona']
+  },
+  'daja-ragip': {
+    name: 'Daja Ragip',
+    members: ["Daja Ragip", "Parimi", "Bidja"]
+  },
+  'sitki-baftiu': {
+    name: 'Sitki Baftiu',
+    members: ["Sitki", "Syria", "Limi", "Zoja", "Premta", "Raimonda", "Roma"]
+  },
+  'gani-avdulli':{
+    name: 'Gani Avdulli',
+    members: ["Gani Avdulli", "Qamile", "Ahmeti", "Dona", "Marigona", "Bioneta"]
+  },
+  'izjadin-spahiu':{
+    name: 'Izjadin Spahiu',
+    members: ["Izjadin Spahiu", "Bahrija", "Artoni", "Besiana", "Lisjeta", "Bajrami", "Rita"],
+  },
+  'valoni': {
+    name: 'Valoni',
+    members: ['Valoni', 'Kaltrina'],
+  },
+  'lavdimi': {
+    name: 'Lavdimi',
+    members: ['Lavdimi', 'Me gru'],
+  },
+  'loriki': {
+    name: 'Loriki',
+    members: ['Loriki', 'Me gru'],
+  },
+  'albani': {
+    name: 'Albani',
+    members: ['Albani', 'Me gru'],
+  },
+  'valdrini': {
+    name: 'Valdrini',
+    members: ['Valdrini', 'Me gru'],
+  },
+  'agroni-lipovica': {
+    name: 'Agroni',
+    members: ['Agroni', 'Me gru'],
+  },
+  'agoni': {
+    name: 'Agoni',
+    members: ['Agoni'],
+  },
+  'bujari': {
+    name: 'Bujari',
+    members: ['Bujari', 'Me gru'],
+  },
+  'visari': {
+    name: 'Visari',
+    members: ['Visari', 'Hava'],
+  },
+  'dati': {
+    name: 'Dati',
+    members: ['Dati', 'Me gru'],
+  },
+  'arbeni': {
+    name: 'Arbeni',
+    members: ['Arbeni', 'Me gru'],
+  },
+  'havisha': {
+    name: 'Havisha',
+    members: ['Havisha', 'Arta', 'Krenarja', 'Fitorja', 'Besiana'],
+  },
+  'rina': {
+    name: 'Rina',
+    members: ['Rina', 'Erda'],
+  },
+  'ajete': {
+    name: 'Ajete',
+    members: ['Ajete', 'Fitore'],
+  },
+  'emini': {
+    name: 'Emini',
+    members: ['Emini', 'Endriti', 'Berati', 'Doni', 'Qendrim'],
+  },
+  'ariani': {
+    name: 'Ariani',
+    members: ['Ariani', 'Arianiti'],
+  },
+  'endrit-azemi': {
+    name: 'Endrit Azemi',
+    members: ['Endrit Azemi'],
+  },
+  'ardiani': {
+    name: 'Ardiani',
+    members: ['Ardiani', 'Agoni', 'Hetemi'],
+  },
+  'geti': {
+    name: 'Geti',
+    members: ['Geti', 'Mozi', 'Besi'],
+  },
 };
 
-function getFamilyName() {
+// ─── Phone numbers per invitee group ───
+const FAMILY_PHONE = '38344434679';
+const GUEST_PHONE  = '355684642402'; // TODO: replace with second WhatsApp number
+
+// ─── Friends / individual guests (separate WhatsApp number) ───
+const GUESTS = {
+  'dritan-berisha':  { name: 'Dritan Berisha',   members: ['Dritan Berisha', 'Familjarisht'] },
+  'enkelejda-noka':  { name: 'Enkelejda Noka',   members: ['Enkelejda Noka', 'Familjarisht'] },
+  'fabiola-sali':    { name: 'Fabiola Sali',     members: ['Fabiola Sali', 'Familjarisht'] },
+  'albi-taga':       { name: 'Albi Taga',        members: ['Albi Taga', 'Bashkëshorti/ja'] },
+  'ladi-rahmanaj':   { name: 'Ladi Rahmanaj',    members: ['Ladi Rahmanaj', 'Bashkëshorti/ja'] },
+  'mimoza-muka':     { name: 'Mimoza Muka',      members: ['Mimoza Muka'] },
+  'gezim-sina':      { name: 'Gëzim Sina',       members: ['Gëzim Sina', 'Bashkëshorti/ja'] },
+  'kasem-tali':      { name: 'Kasem Tali',       members: ['Kasem Tali', 'Bashkëshorti/ja'] },
+  'bruna':           { name: 'Bruna',            members: ['Bruna', 'Bashkëshorti/ja'] },
+  'alma-groshiti':   { name: 'Alma Groshiti',    members: ['Alma Groshiti', 'Bashkëshorti/ja'] },
+  'eraldo-adelina':  { name: 'Eraldo & Adelina', members: ['Eraldo', 'Adelina'] },
+  'arian-kameri':    { name: 'Arian Kameri',     members: ['Arian Kameri', 'Bashkëshorti/ja'] },
+  'haxhi-tarja':     { name: 'Haxhi Tarja',      members: ['Haxhi Tarja', 'Bashkëshorti/ja'] },
+  'broni-mantho':    { name: 'Broni Mantho',     members: ['Broni Mantho', 'Bashkëshorti/ja'] },
+};
+
+function getFamily() {
   const hash = window.location.hash.slice(1).toLowerCase();
-  return FAMILIES[hash] || null;
+  if (FAMILIES[hash]) return { ...FAMILIES[hash], phone: FAMILY_PHONE };
+  if (GUESTS[hash])   return { ...GUESTS[hash],   phone: GUEST_PHONE };
+  return null;
 }
 
-function setFamilyName(name) {
+function setFamilyName(family) {
+  const greeting = document.querySelector('.family-greeting');
   const el = document.getElementById('familyName');
-  const label = document.querySelector('.family-greeting .label');
+  const label = greeting.querySelector('.label');
+  const existingList = greeting.querySelector('.family-members');
 
-  if (name) {
-    el.textContent = 'Familja ' + name;
-    label.textContent = 'Jeni të ftuar me nderim';
+  label.textContent = 'Jeni të ftuar me nderim';
+
+  if (family) {
+    el.textContent = 'Familja ' + family.name;
+
+    if (existingList) existingList.remove();
+    if (family.members && family.members.length) {
+      const list = document.createElement('ul');
+      list.className = 'family-members';
+      for (const member of family.members) {
+        const li = document.createElement('li');
+        li.textContent = member;
+        list.appendChild(li);
+      }
+      el.insertAdjacentElement('afterend', list);
+    }
   } else {
     el.textContent = 'Ju';
-    label.textContent = 'Jeni të ftuar me nderim';
+    if (existingList) existingList.remove();
   }
 }
 
@@ -121,12 +415,13 @@ function initRSVP() {
 
   btn.addEventListener('click', (e) => {
     e.preventDefault();
-    const familyName = getFamilyName();
-    const name = familyName ? 'Familja ' + familyName : '';
+    const family = getFamily();
+    const name = family ? 'Familja ' + family.name : '';
+    const phone = family ? family.phone : FAMILY_PHONE;
     const message = encodeURIComponent(
       `Përshëndetje! ${name} do të marrim pjesë në dasmën tuaj me gëzim! 🎉`
     );
-    window.open(`https://wa.me/38344434679?text=${message}`, '_blank');
+    window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
   });
 }
 
@@ -243,7 +538,7 @@ function initEnvelope() {
 
 // ─── Init ───
 document.addEventListener('DOMContentLoaded', () => {
-  setFamilyName(getFamilyName());
+  setFamilyName(getFamily());
   initEnvelope();
   initCalendarButton();
   initRSVP();

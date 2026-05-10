@@ -496,6 +496,25 @@ body::before {
   display: block;
 }
 
+.family-greeting .family-members {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.family-greeting .family-members li {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(16px, 3.6vw, 20px);
+  font-weight: 400;
+  color: var(--charcoal);
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+
 @keyframes fade-up {
   to { opacity: 1; transform: translateY(0); }
 }
