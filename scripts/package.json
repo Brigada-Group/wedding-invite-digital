@@ -5,7 +5,8 @@
   "type": "module",
   "description": "Generation scripts for the wedding invite (fal.ai, etc.)",
   "scripts": {
-    "generate-videos": "node generate-videos.mjs"
+    "generate-videos": "node generate-videos.mjs",
+    "urls": "node generate-urls.mjs"
   },
   "dependencies": {
     "@fal-ai/client": "^1.6.4"

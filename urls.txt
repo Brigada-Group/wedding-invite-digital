@@ -1,0 +1,90 @@
+# Wedding share links — Loti & Matina
+# Domain: wedding-invite-digital-kxdp0kig.on-forge.com
+# Total: 80 personalized links · ~238 guests
+# Regenerate: cd scripts && npm run urls
+
+## FAMILIES — 66 links (WhatsApp +383 44 434 679)
+
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#halla-kadire     → Halla Kadire: Halla Kadire, Bahtiri, Naseri, Sara, Aferdita, Ganja, Luta, Mihanja
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#bahrija          → Bahrija: Afrimi, Bahrija
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#mihanja          → Mihanja: Ramadan, Mihanja
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#halla-nif        → Halla Nif: Halla Nif, Mesudi, Sheribani, Rinesa, Fitorja, Mihanja, Mirveti, Zyrafeti, Sahadeti, Liria, Hidajeti, Luljeta, Shkurta
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#halla-raz        → Halla Raz: Halla Raz, Blerimi, Zoja, Parimi, Mihanja, Havushi, Xemi, Dona, Niti, Diona
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#agroni           → Agroni: Agroni, Aferdita
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#dritoni          → Dritoni: Dritoni, Ajna, Olti
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#maliqi           → Maliqi: Maliqi, Dona
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#zbulimi          → Zbulimi: Zbulimi, Drita
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#qendresa         → Qendresa: Arsimi, Qendresa
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#halla-nizaqet    → Halla Nizaqet: Halla Nizaqet, Lenti, Valdrina, Blerina
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#tina             → Tina: Arlind, Tina
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#adelina          → Adelina: Alban, Adelina
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#mergime          → Mergime: Defrim, Mergime
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#daja-ibrahim     → Daja Ibrahim: Daja Ibrahim, Bajra, Alisa, Dini, Adisa
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#adisa            → Adisa: Ramzo, Adisa
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#asmiri           → Asmiri: Asmiri, Amra, Amar
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#daja-islam       → Daja Islam: Daja Islam, Safeti, Arbeni, Dona, Avdyli, Linda me bashkeshort, Lindita me bashkeshort
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#arsim            → Arsimi: Arsimi, Nina, Xhemka
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#naseri           → Naseri: Naseri, Ajsella, Azemina, Leo
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#ymeri            → Ymeri: Ymeri, Ajsha, Dion
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#gazmendi         → Gazmendi: Tezja Shukri, Gazmendi, Linda, Sabian, Edi
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#nasidi           → Nasidi: Nasidi, Pranvera, Lona, Tina
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#astriti          → Astriti: Astriti, Vildanja, Eduardi
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#frasheri         → Frasheri: Frasheri, Xhemile
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#malsore          → Malsore: Qendrim, Malsore
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#korabi           → Korabi: Korabi, Antigona
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#bardhosh         → Bardhosh: Bardhosh, Lona
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#ardi             → Ardi: Ardi, Saranda
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#enisi            → Enisi: Enisi, Arjeta, Albina
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#besniki          → Besniki: Babuli, Besniki, Blerta
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#agroni-xhaferi   → Agroni: Agroni, Hana, Merisa
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#vjosa            → Vjosa: Blini, Vjosa
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#medina           → Medina: Arber, Medina
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#arditi           → Arditi: Arditi, Yllka
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#besimi           → Besimi: Besimi, Drita, Besniki (me gru), Besiani (me gru)
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#bucki            → bucki: Bucki, Mersia, Tada
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#baci-sabri       → Baci Sabri: Baci Sabri, Hyra, Amiri, Me gru
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#qamili           → Qamili: Qamili, Me gru
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#adili            → Adili: Adili, Me gru
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#daja-jakup       → Daja Jakup: Daja Jakup, Hamidja, Flakroni, Kaltrina, Xoni, Lironi
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#pimi             → Pimi: Pimi
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#januzi           → Januzi: Januzi, Valbona
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#daja-ragip       → Daja Ragip: Daja Ragip, Parimi, Bidja
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#sitki-baftiu     → Sitki Baftiu: Sitki, Syria, Limi, Zoja, Premta, Raimonda, Roma
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#gani-avdulli     → Gani Avdulli: Gani Avdulli, Qamile, Ahmeti, Dona, Marigona, Bioneta
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#izjadin-spahiu   → Izjadin Spahiu: Izjadin Spahiu, Bahrija, Artoni, Besiana, Lisjeta, Bajrami, Rita
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#valoni           → Valoni: Valoni, Kaltrina
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#lavdimi          → Lavdimi: Lavdimi, Me gru
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#loriki           → Loriki: Loriki, Me gru
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#albani           → Albani: Albani, Me gru
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#valdrini         → Valdrini: Valdrini, Me gru
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#agroni-lipovica  → Agroni: Agroni, Me gru
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#agoni            → Agoni: Agoni
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#bujari           → Bujari: Bujari, Me gru
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#visari           → Visari: Visari, Hava
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#dati             → Dati: Dati, Me gru
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#arbeni           → Arbeni: Arbeni, Me gru
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#havisha          → Havisha: Havisha, Arta, Krenarja, Fitorja, Besiana
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#rina             → Rina: Rina, Erda
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#ajete            → Ajete: Ajete, Fitore
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#emini            → Emini: Emini, Endriti, Berati, Doni, Qendrim
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#ariani           → Ariani: Ariani, Arianiti
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#endrit-azemi     → Endrit Azemi: Endrit Azemi
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#ardiani          → Ardiani: Ardiani, Agoni, Hetemi
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#geti             → Geti: Geti, Mozi, Besi
+
+## GUESTS — 14 links (WhatsApp +355 68 464 2402)
+
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#dritan-berisha  → Dritan Berisha: Dritan Berisha, Familjarisht
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#enkelejda-noka  → Enkelejda Noka: Enkelejda Noka, Familjarisht
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#fabiola-sali    → Fabiola Sali: Fabiola Sali, Familjarisht
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#albi-taga       → Albi Taga: Albi Taga, Bashkëshorti/ja
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#ladi-rahmanaj   → Ladi Rahmanaj: Ladi Rahmanaj, Bashkëshorti/ja
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#mimoza-muka     → Mimoza Muka: Mimoza Muka
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#gezim-sina      → Gëzim Sina: Gëzim Sina, Bashkëshorti/ja
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#kasem-tali      → Kasem Tali: Kasem Tali, Bashkëshorti/ja
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#bruna           → Bruna: Bruna, Bashkëshorti/ja
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#alma-groshiti   → Alma Groshiti: Alma Groshiti, Bashkëshorti/ja
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#eraldo-adelina  → Eraldo & Adelina: Eraldo, Adelina
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#arian-kameri    → Arian Kameri: Arian Kameri, Bashkëshorti/ja
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#haxhi-tarja     → Haxhi Tarja: Haxhi Tarja, Bashkëshorti/ja
+https://wedding-invite-digital-kxdp0kig.on-forge.com/#broni-mantho    → Broni Mantho: Broni Mantho, Bashkëshorti/ja
