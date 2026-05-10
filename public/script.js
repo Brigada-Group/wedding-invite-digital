@@ -303,24 +303,18 @@ function setFamilyName(family) {
   const existingList = greeting.querySelector('.family-members');
 
   label.textContent = 'Jeni të ftuar me nderim';
+  el.textContent = '';
+  if (existingList) existingList.remove();
 
-  if (family) {
-    el.textContent = 'Familja ' + family.name;
-
-    if (existingList) existingList.remove();
-    if (family.members && family.members.length) {
-      const list = document.createElement('ul');
-      list.className = 'family-members';
-      for (const member of family.members) {
-        const li = document.createElement('li');
-        li.textContent = member;
-        list.appendChild(li);
-      }
-      el.insertAdjacentElement('afterend', list);
+  if (family && family.members && family.members.length) {
+    const list = document.createElement('ul');
+    list.className = 'family-members';
+    for (const member of family.members) {
+      const li = document.createElement('li');
+      li.textContent = member;
+      list.appendChild(li);
     }
-  } else {
-    el.textContent = 'Ju';
-    if (existingList) existingList.remove();
+    el.insertAdjacentElement('afterend', list);
   }
 }
 
