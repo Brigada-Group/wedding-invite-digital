@@ -1,0 +1,543 @@
+{
+  "halla-kadire": {
+    "name": "Halla Kadire",
+    "members": [
+      "Halla Kadire",
+      "Bahtiri",
+      "Naseri",
+      "Sara",
+      "Aferdita",
+      "Ganja",
+      "Luta",
+      "Mihanja"
+    ]
+  },
+  "bahrija": {
+    "name": "Bahrija",
+    "members": [
+      "Afrimi",
+      "Bahrija"
+    ]
+  },
+  "mihanja": {
+    "name": "Mihanja",
+    "members": [
+      "Ramadan",
+      "Mihanja"
+    ]
+  },
+  "halla-nif": {
+    "name": "Halla Nif",
+    "members": [
+      "Halla Nif",
+      "Mesudi",
+      "Sheribani",
+      "Rinesa",
+      "Fitorja",
+      "Mihanja",
+      "Mirveti",
+      "Zyrafeti",
+      "Sahadeti",
+      "Liria",
+      "Hidajeti",
+      "Luljeta",
+      "Shkurta"
+    ]
+  },
+  "halla-raz": {
+    "name": "Halla Raz",
+    "members": [
+      "Halla Raz",
+      "Blerimi",
+      "Zoja",
+      "Parimi",
+      "Mihanja",
+      "Havushi",
+      "Xemi",
+      "Dona",
+      "Niti",
+      "Diona"
+    ]
+  },
+  "agroni": {
+    "name": "Agroni",
+    "members": [
+      "Agroni",
+      "Aferdita"
+    ]
+  },
+  "dritoni": {
+    "name": "Dritoni",
+    "members": [
+      "Dritoni",
+      "Ajna",
+      "Olti"
+    ]
+  },
+  "maliqi": {
+    "name": "Maliqi",
+    "members": [
+      "Maliqi",
+      "Dona"
+    ]
+  },
+  "zbulimi": {
+    "name": "Zbulimi",
+    "members": [
+      "Zbulimi",
+      "Drita"
+    ]
+  },
+  "qendresa": {
+    "name": "Qendresa",
+    "members": [
+      "Arsimi",
+      "Qendresa"
+    ]
+  },
+  "halla-nizaqet": {
+    "name": "Halla Nizaqet",
+    "members": [
+      "Halla Nizaqet",
+      "Lenti",
+      "Valdrina",
+      "Blerina"
+    ]
+  },
+  "tina": {
+    "name": "Tina",
+    "members": [
+      "Arlind",
+      "Tina"
+    ]
+  },
+  "adelina": {
+    "name": "Adelina",
+    "members": [
+      "Alban",
+      "Adelina"
+    ]
+  },
+  "mergime": {
+    "name": "Mergime",
+    "members": [
+      "Defrim",
+      "Mergime"
+    ]
+  },
+  "daja-ibrahim": {
+    "name": "Daja Ibrahim",
+    "members": [
+      "Daja Ibrahim",
+      "Bajra",
+      "Alisa",
+      "Dini",
+      "Adisa"
+    ]
+  },
+  "adisa": {
+    "name": "Adisa",
+    "members": [
+      "Ramzo",
+      "Adisa"
+    ]
+  },
+  "asmiri": {
+    "name": "Asmiri",
+    "members": [
+      "Asmiri",
+      "Amra",
+      "Amar"
+    ]
+  },
+  "daja-islam": {
+    "name": "Daja Islam",
+    "members": [
+      "Daja Islam",
+      "Safeti",
+      "Arbeni",
+      "Dona",
+      "Avdyli",
+      "Linda me bashkeshort",
+      "Lindita me bashkeshort"
+    ]
+  },
+  "arsim": {
+    "name": "Arsimi",
+    "members": [
+      "Arsimi",
+      "Nina",
+      "Xhemka"
+    ]
+  },
+  "naseri": {
+    "name": "Naseri",
+    "members": [
+      "Naseri",
+      "Ajsella",
+      "Azemina",
+      "Leo"
+    ]
+  },
+  "ymeri": {
+    "name": "Ymeri",
+    "members": [
+      "Ymeri",
+      "Ajsha",
+      "Dion"
+    ]
+  },
+  "gazmendi": {
+    "name": "Gazmendi",
+    "members": [
+      "Tezja Shukri",
+      "Gazmendi",
+      "Linda",
+      "Sabian",
+      "Edi"
+    ]
+  },
+  "nasidi": {
+    "name": "Nasidi",
+    "members": [
+      "Nasidi",
+      "Pranvera",
+      "Lona",
+      "Tina"
+    ]
+  },
+  "astriti": {
+    "name": "Astriti",
+    "members": [
+      "Astriti",
+      "Vildanja",
+      "Eduardi"
+    ]
+  },
+  "frasheri": {
+    "name": "Frasheri",
+    "members": [
+      "Frasheri",
+      "Xhemile"
+    ]
+  },
+  "malsore": {
+    "name": "Malsore",
+    "members": [
+      "Qendrim",
+      "Malsore"
+    ]
+  },
+  "korabi": {
+    "name": "Korabi",
+    "members": [
+      "Korabi",
+      "Antigona"
+    ]
+  },
+  "bardhosh": {
+    "name": "Bardhosh",
+    "members": [
+      "Bardhosh",
+      "Lona"
+    ]
+  },
+  "ardi": {
+    "name": "Ardi",
+    "members": [
+      "Ardi",
+      "Saranda"
+    ]
+  },
+  "enisi": {
+    "name": "Enisi",
+    "members": [
+      "Enisi",
+      "Arjeta",
+      "Albina"
+    ]
+  },
+  "besniki": {
+    "name": "Besniki",
+    "members": [
+      "Babuli",
+      "Besniki",
+      "Blerta"
+    ]
+  },
+  "agroni-xhaferi": {
+    "name": "Agroni",
+    "members": [
+      "Agroni",
+      "Hana",
+      "Merisa"
+    ]
+  },
+  "vjosa": {
+    "name": "Vjosa",
+    "members": [
+      "Blini",
+      "Vjosa"
+    ]
+  },
+  "medina": {
+    "name": "Medina",
+    "members": [
+      "Arber",
+      "Medina"
+    ]
+  },
+  "arditi": {
+    "name": "Arditi",
+    "members": [
+      "Arditi",
+      "Yllka"
+    ]
+  },
+  "besimi": {
+    "name": "Besimi",
+    "members": [
+      "Besimi",
+      "Drita",
+      "Besniki (me gru)",
+      "Besiani (me gru)"
+    ]
+  },
+  "bucki": {
+    "name": "Bucki",
+    "members": [
+      "Bucki",
+      "Mersia",
+      "Tada"
+    ]
+  },
+  "baci-sabri": {
+    "name": "Baci Sabri",
+    "members": [
+      "Baci Sabri",
+      "Hyra",
+      "Amiri",
+      "Me gru"
+    ]
+  },
+  "qamili": {
+    "name": "Qamili",
+    "members": [
+      "Qamili",
+      "Me gru"
+    ]
+  },
+  "adili": {
+    "name": "Adili",
+    "members": [
+      "Adili",
+      "Me gru"
+    ]
+  },
+  "daja-jakup": {
+    "name": "Daja Jakup",
+    "members": [
+      "Daja Jakup",
+      "Hamidja",
+      "Flakroni",
+      "Kaltrina",
+      "Xoni",
+      "Lironi"
+    ]
+  },
+  "pimi": {
+    "name": "Pimi",
+    "members": [
+      "Pimi"
+    ]
+  },
+  "januzi": {
+    "name": "Januzi",
+    "members": [
+      "Januzi",
+      "Valbona"
+    ]
+  },
+  "daja-ragip": {
+    "name": "Daja Ragip",
+    "members": [
+      "Daja Ragip",
+      "Parimi",
+      "Bidja"
+    ]
+  },
+  "sitki-baftiu": {
+    "name": "Sitki Baftiu",
+    "members": [
+      "Sitki",
+      "Syria",
+      "Limi",
+      "Zoja",
+      "Premta",
+      "Raimonda",
+      "Roma"
+    ]
+  },
+  "gani-avdulli": {
+    "name": "Gani Avdulli",
+    "members": [
+      "Gani Avdulli",
+      "Qamile",
+      "Ahmeti",
+      "Dona",
+      "Marigona",
+      "Bioneta"
+    ]
+  },
+  "izjadin-spahiu": {
+    "name": "Izjadin Spahiu",
+    "members": [
+      "Izjadin Spahiu",
+      "Bahrija",
+      "Artoni",
+      "Besiana",
+      "Lisjeta",
+      "Bajrami",
+      "Rita"
+    ]
+  },
+  "valoni": {
+    "name": "Valoni",
+    "members": [
+      "Valoni",
+      "Kaltrina"
+    ]
+  },
+  "lavdimi": {
+    "name": "Lavdimi",
+    "members": [
+      "Lavdimi",
+      "Me gru"
+    ]
+  },
+  "loriki": {
+    "name": "Loriki",
+    "members": [
+      "Loriki",
+      "Me gru"
+    ]
+  },
+  "albani": {
+    "name": "Albani",
+    "members": [
+      "Albani",
+      "Me gru"
+    ]
+  },
+  "valdrini": {
+    "name": "Valdrini",
+    "members": [
+      "Valdrini",
+      "Me gru"
+    ]
+  },
+  "agroni-lipovica": {
+    "name": "Agroni",
+    "members": [
+      "Agroni",
+      "Me gru"
+    ]
+  },
+  "agoni": {
+    "name": "Agoni",
+    "members": [
+      "Agoni"
+    ]
+  },
+  "bujari": {
+    "name": "Bujari",
+    "members": [
+      "Bujari",
+      "Me gru"
+    ]
+  },
+  "visari": {
+    "name": "Visari",
+    "members": [
+      "Visari",
+      "Hava"
+    ]
+  },
+  "dati": {
+    "name": "Dati",
+    "members": [
+      "Dati",
+      "Me gru"
+    ]
+  },
+  "arbeni": {
+    "name": "Arbeni",
+    "members": [
+      "Arbeni",
+      "Me gru"
+    ]
+  },
+  "havisha": {
+    "name": "Havisha",
+    "members": [
+      "Havisha",
+      "Arta",
+      "Krenarja",
+      "Fitorja",
+      "Besiana"
+    ]
+  },
+  "rina": {
+    "name": "Rina",
+    "members": [
+      "Rina",
+      "Erda"
+    ]
+  },
+  "ajete": {
+    "name": "Ajete",
+    "members": [
+      "Ajete",
+      "Fitore"
+    ]
+  },
+  "emini": {
+    "name": "Emini",
+    "members": [
+      "Emini",
+      "Endriti",
+      "Berati",
+      "Doni",
+      "Qendrim"
+    ]
+  },
+  "ariani": {
+    "name": "Ariani",
+    "members": [
+      "Ariani",
+      "Arianiti"
+    ]
+  },
+  "endrit-azemi": {
+    "name": "Endrit Azemi",
+    "members": [
+      "Endrit Azemi"
+    ]
+  },
+  "ardiani": {
+    "name": "Ardiani",
+    "members": [
+      "Ardiani",
+      "Agoni",
+      "Hetemi"
+    ]
+  },
+  "geti": {
+    "name": "Geti",
+    "members": [
+      "Geti",
+      "Mozi",
+      "Besi"
+    ]
+  }
+}

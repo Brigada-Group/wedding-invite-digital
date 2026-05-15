@@ -37,3 +37,10 @@ fal-*.log
 .env
 .env.*
 !.env.example
+
+# Edit page server config (password lives here on the server only)
+public/edit/config.local.php
+
+# Local-only families.json fallback (real one lives outside the repo on Forge)
+public/edit/families.local.json
+public/edit/families.local.json.bak
