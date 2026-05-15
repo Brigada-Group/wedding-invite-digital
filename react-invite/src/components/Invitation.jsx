@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import Particles from './Particles'
 import Countdown from './Countdown'
@@ -44,13 +44,34 @@ function downloadICS() {
   URL.revokeObjectURL(url)
 }
 
-function sendRSVP(familyName) {
-  const name = familyName ? 'Familja ' + familyName : ''
+function sendRSVP(family) {
+  const name = family ? 'Familja ' + family.name : ''
   const msg = encodeURIComponent(`Përshëndetje! ${name} do të marrim pjesë në dasmën tuaj me gëzim! 🎉`)
   window.open(`https://wa.me/38344434679?text=${msg}`, '_blank')
 }
 
-export default function Invitation({ familyName }) {
+function declineRSVP(family) {
+  const name = family ? 'Familja ' + family.name : ''
+  const msg = encodeURIComponent(`Përshëndetje! Ju falënderojmë për ftesën. Fatkeqësisht ${name} nuk do të mund të marrim pjesë në dasmën tuaj. Ju urojmë gjithë të mirat! 💐`)
+  window.open(`https://wa.me/38344434679?text=${msg}`, '_blank')
+}
+
+export default function Invitation({ family }) {
+  const heroVideoRef = useRef(null)
+
+  useEffect(() => {
+    const video = heroVideoRef.current
+    if (!video) return
+    const playWhenReady = () => {
+      video.play().catch(() => {
+        video.classList.add(styles.heroVideoHidden)
+      })
+    }
+    if (video.readyState >= 2) playWhenReady()
+    else video.addEventListener('canplay', playWhenReady, { once: true })
+    return () => video.removeEventListener('canplay', playWhenReady)
+  }, [])
+
   return (
     <motion.div
       className={styles.overlay}
@@ -72,9 +93,19 @@ export default function Invitation({ familyName }) {
       ))}
 
       <div className={styles.content}>
-        {/* Hero photo — single image, no gallery */}
+        {/* Hero photo — still image fades into animated intro */}
         <motion.div className={styles.heroPhoto} {...fadeUp(0.1)}>
-          <img src="/main.png" alt="Loti & Matina" />
+          <img src="/main.png" alt="Loti & Matina" className={styles.heroImg} />
+          <video
+            ref={heroVideoRef}
+            className={styles.heroVideo}
+            src="/main-intro.mp4"
+            poster="/main.png"
+            muted
+            playsInline
+            preload="auto"
+            aria-hidden="true"
+          />
         </motion.div>
 
         {/* Decorative line */}
@@ -98,9 +129,13 @@ export default function Invitation({ familyName }) {
         {/* Family greeting */}
         <motion.div className={styles.familyGreeting} {...fadeUp(0.9)}>
           <span className={styles.label}>Jeni të ftuar me nderim</span>
-          <span className={styles.familyName}>
-            {familyName ? `Familja ${familyName}` : 'Ju'}
-          </span>
+          {family?.members?.length > 0 && (
+            <ul className={styles.familyMembers}>
+              {family.members.map((member) => (
+                <li key={member}>{member}</li>
+              ))}
+            </ul>
+          )}
           <span className={styles.invitedText}>të festoni dasmën e</span>
         </motion.div>
 
@@ -172,12 +207,19 @@ export default function Invitation({ familyName }) {
 
         {/* Action buttons */}
         <RevealSection className={styles.actions}>
-          <button className={`${styles.btn} ${styles.btnPrimary}`} onClick={() => sendRSVP(familyName)}>
+          <button className={`${styles.btn} ${styles.btnPrimary}`} onClick={() => sendRSVP(family)}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
               <path d="M12 0C5.373 0 0 5.373 0 12c0 2.025.503 3.935 1.389 5.611L0 24l6.597-1.332A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818c-1.855 0-3.63-.5-5.181-1.441l-.372-.22-3.856.777.813-3.741-.242-.385A9.772 9.772 0 012.182 12c0-5.414 4.404-9.818 9.818-9.818S21.818 6.586 21.818 12 17.414 21.818 12 21.818z" />
             </svg>
             Konfirmo Pjesëmarrjen
+          </button>
+          <button className={`${styles.btn} ${styles.btnDecline}`} onClick={() => declineRSVP(family)}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+            Më vjen keq, nuk mundem
           </button>
           <button className={`${styles.btn} ${styles.btnOutline}`} onClick={downloadICS}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
