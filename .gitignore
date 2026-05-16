@@ -44,3 +44,6 @@ public/edit/config.local.php
 # Local-only families.json fallback (real one lives outside the repo on Forge)
 public/edit/families.local.json
 public/edit/families.local.json.bak
+
+# Local-only originals before asset optimization (kept for emergency restore)
+public/_orig_backup/

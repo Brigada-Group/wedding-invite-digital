@@ -6,22 +6,28 @@
   <title>Ftesë Dasme — Matina & Loti</title>
   <meta name="description" content="Jeni të ftuar të festoni dasmën e Matina & Loti Gashi">
   <meta name="theme-color" content="#FAF8F4">
+
+  <!-- Critical assets: start loading these in parallel with the HTML parse. -->
+  <link rel="preload" as="image" href="Final-poster.webp" type="image/webp">
+  <link rel="preload" as="image" href="main.webp" type="image/webp">
+  <link rel="preload" as="video" href="main-intro.mp4" type="video/mp4">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <!-- ═══ ENVELOPE SCENE ═══ -->
   <div class="envelope-scene" id="envelopeScene">
-    <img src="frame_top.png" alt="" class="frame-top">
-    <img src="frame_bottom.png" alt="" class="frame-bottom">
+    <img src="frame_top.webp" alt="" class="frame-top" decoding="async">
+    <img src="frame_bottom.webp" alt="" class="frame-bottom" decoding="async">
     <div class="envelope-wrapper" id="envelopeWrapper">
       <div class="envelope-stage">
-        <img src="Final-poster.png" alt="" class="envelope-fallback">
+        <img src="Final-poster.webp" alt="" class="envelope-fallback" decoding="async">
         <video
           id="envelopeIntro"
           class="envelope-video"
           src="Final.mp4"
-          poster="Final-poster.png"
+          poster="Final-poster.webp"
           muted
           playsinline
           preload="auto"
@@ -52,12 +58,12 @@
 
         <!-- Hero photo — still image fades into animated intro -->
         <div class="hero-photo" id="heroPhoto">
-          <img src="main.png" alt="Loti & Matina" class="hero-fallback">
+          <img src="main.webp" alt="Loti & Matina" class="hero-fallback" decoding="async" fetchpriority="high">
           <video
             id="heroIntro"
             class="hero-video hero-intro"
             src="main-intro.mp4"
-            poster="main.png"
+            poster="main.webp"
             muted
             playsinline
             preload="auto"
@@ -159,7 +165,7 @@
 
         <div class="map-section reveal">
           <div class="venue-image-container">
-            <img src="image.jpeg" alt="Hills Restaurant — Vendi i Dasmës" class="venue-image">
+            <img src="image.jpeg" alt="Hills Restaurant — Vendi i Dasmës" class="venue-image" loading="lazy" decoding="async">
             <div class="venue-image-caption">Hills Restaurant</div>
           </div>
           <div class="map-container">
@@ -183,6 +189,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=12"></script>
+  <script src="script.js?v=13"></script>
 </body>
 </html>
