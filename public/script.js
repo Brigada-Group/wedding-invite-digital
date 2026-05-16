@@ -43,25 +43,72 @@ function getFamily() {
   return null;
 }
 
+// Turn the raw members[] array into pretty rows:
+//  - A lone "&" between two names collapses them into "A & B" on one row.
+//  - Lines wrapped in parentheses become notes that render under the list.
+//  - Anything else renders as its own row.
+function shapeMembers(members) {
+  const cleaned = [];
+  const notes = [];
+  for (const raw of members) {
+    const s = String(raw).trim();
+    if (s === '') continue;
+    if (s.startsWith('(') && s.endsWith(')')) {
+      const inner = s.slice(1, -1).trim();
+      if (inner) notes.push(inner);
+    } else {
+      cleaned.push(s);
+    }
+  }
+
+  const rows = [];
+  let i = 0;
+  while (i < cleaned.length) {
+    const cur = cleaned[i];
+    if (cur === '&') { i++; continue; } // orphan separator, skip
+    const isPair = cleaned[i + 1] === '&' && cleaned[i + 2] && cleaned[i + 2] !== '&';
+    if (isPair) {
+      rows.push(`${cur} & ${cleaned[i + 2]}`);
+      i += 3;
+    } else {
+      rows.push(cur);
+      i += 1;
+    }
+  }
+  return { rows, notes };
+}
+
 function setFamilyName(family) {
   const greeting = document.querySelector('.family-greeting');
   const el = document.getElementById('familyName');
   const label = greeting.querySelector('.label');
-  const existingList = greeting.querySelector('.family-members');
+  greeting.querySelector('.family-members')?.remove();
+  greeting.querySelector('.family-note')?.remove();
 
   label.textContent = 'Jeni të ftuar me nderim';
   el.textContent = '';
-  if (existingList) existingList.remove();
 
-  if (family && family.members && family.members.length) {
+  if (!family || !family.members || !family.members.length) return;
+
+  const { rows, notes } = shapeMembers(family.members);
+
+  if (rows.length) {
     const list = document.createElement('ul');
     list.className = 'family-members';
-    for (const member of family.members) {
+    for (const text of rows) {
       const li = document.createElement('li');
-      li.textContent = member;
+      li.textContent = text;
       list.appendChild(li);
     }
     el.insertAdjacentElement('afterend', list);
+  }
+
+  if (notes.length) {
+    const note = document.createElement('p');
+    note.className = 'family-note';
+    note.textContent = notes.join(' · ');
+    const anchor = greeting.querySelector('.family-members') || el;
+    anchor.insertAdjacentElement('afterend', note);
   }
 }
 
@@ -161,6 +208,23 @@ function initRSVP() {
     const phone = family ? family.phone : FAMILY_PHONE;
     const message = encodeURIComponent(
       `Përshëndetje! ${name} do të marrim pjesë në dasmën tuaj me gëzim! 🎉`
+    );
+    window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+  });
+}
+
+// ─── Decline via WhatsApp ───
+function initDecline() {
+  const btn = document.getElementById('declineBtn');
+  if (!btn) return;
+
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const family = getFamily();
+    const name = family ? 'Familja ' + family.name : '';
+    const phone = family ? family.phone : FAMILY_PHONE;
+    const message = encodeURIComponent(
+      `Përshëndetje! Ju falënderojmë për ftesën. Fatkeqësisht ${name} nuk do të mund të marrim pjesë në dasmën tuaj. Ju urojmë gjithë të mirat! 💐`
     );
     window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
   });
@@ -288,4 +352,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initEnvelope();
   initCalendarButton();
   initRSVP();
+  initDecline();
 });
