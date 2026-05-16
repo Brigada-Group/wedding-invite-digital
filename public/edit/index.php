@@ -120,22 +120,34 @@ if ($method === 'POST' && ($_POST['action'] ?? '') === 'save') {
             $flash = ['type' => 'error', 'text' => 'JSON i pavlefshëm: ' . json_last_error_msg()];
         }
     } else {
-        // Three parallel arrays — index N of each describes one family row.
-        $slugs = $_POST['slug'] ?? [];
+        // Parallel arrays — index N of each describes one family row.
+        // existing_slug is empty for newly-added rows; for existing rows
+        // it preserves the share URL across renames.
+        $existingSlugs = $_POST['existing_slug'] ?? [];
         $names = $_POST['name'] ?? [];
         $membersBlobs = $_POST['members'] ?? [];
         $parsed = [];
-        if (is_array($slugs)) {
-            $count = count($slugs);
+        if (is_array($names)) {
+            $count = count($names);
             for ($i = 0; $i < $count; $i++) {
-                $slug = (string) ($slugs[$i] ?? '');
-                if ($slug === '') continue;
-                $name = (string) ($names[$i] ?? '');
+                $name = trim((string) ($names[$i] ?? ''));
                 $membersBlob = (string) ($membersBlobs[$i] ?? '');
                 $members = array_values(array_filter(
                     array_map('trim', preg_split('/\r?\n/', $membersBlob)),
                     fn($s) => $s !== ''
                 ));
+                // Skip rows the user left fully blank — friendlier than erroring.
+                if ($name === '' && count($members) === 0) continue;
+
+                $existing = trim((string) ($existingSlugs[$i] ?? ''));
+                $slug = $existing !== '' ? normalize_slug($existing) : normalize_slug($name);
+                if ($slug === '') $slug = 'familja';
+                // Disambiguate collisions so a rename never silently drops a family.
+                $base = $slug;
+                $n = 2;
+                while (isset($parsed[$slug])) {
+                    $slug = $base . '-' . $n++;
+                }
                 $parsed[$slug] = ['name' => $name, 'members' => $members];
             }
         }
@@ -223,7 +235,7 @@ function render_editor(array $families, ?array $flash, string $familiesFile): vo
     <section id="structuredEditor">
       <div class="toolbar">
         <button type="button" id="addFamilyBtn" class="primary">+ Shto familje</button>
-        <span class="muted small">Çdo familje ka një ID (slug), një emër dhe një listë anëtarësh (një rresht për anëtar).</span>
+        <span class="muted small">Shkruaj emrin e familjes dhe anëtarët (një emër për rresht). Linku ndahet automatikisht pas ruajtjes.</span>
       </div>
       <div id="familyList">
         <?php foreach ($families as $slug => $family): ?>
@@ -243,7 +255,7 @@ function render_editor(array $families, ?array $flash, string $familiesFile): vo
   </form>
 
   <template id="familyTemplate">
-    <?php render_family_row('', ['name' => '', 'members' => []], true); ?>
+    <?php render_family_row('', ['name' => '', 'members' => []]); ?>
   </template>
 
   <script>
@@ -259,13 +271,27 @@ function render_editor(array $families, ?array $flash, string $familiesFile): vo
       addBtn.addEventListener('click', () => {
         const frag = tpl.content.cloneNode(true);
         list.appendChild(frag);
-        list.lastElementChild.querySelector('input[name="slug[]"]').focus();
+        const lastRow = list.lastElementChild;
+        const nameInput = lastRow.querySelector('input[name="name[]"]');
+        if (nameInput) nameInput.focus();
+        lastRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
       });
 
       list.addEventListener('click', (e) => {
         if (e.target.matches('[data-remove]')) {
           const row = e.target.closest('.family-row');
-          row.remove();
+          if (confirm('Të fshihet kjo familje?')) row.remove();
+          return;
+        }
+        if (e.target.matches('[data-copy]')) {
+          const url = e.target.dataset.copy;
+          navigator.clipboard.writeText(url).then(() => {
+            const original = e.target.textContent;
+            e.target.textContent = 'U kopjua ✓';
+            setTimeout(() => { e.target.textContent = original; }, 1400);
+          }).catch(() => {
+            window.prompt('Kopjo linkun:', url);
+          });
         }
       });
 
@@ -282,20 +308,34 @@ function render_editor(array $families, ?array $flash, string $familiesFile): vo
 </html>
 <?php }
 
-function render_family_row(string $slug, array $family, bool $forTemplate = false): void {
+function render_family_row(string $slug, array $family): void {
     $name = (string) ($family['name'] ?? '');
     $members = is_array($family['members'] ?? null) ? $family['members'] : [];
     $membersText = implode("\n", $members);
+    $shareUrl = $slug !== '' ? site_base_url() . '/#' . $slug : '';
 ?>
     <div class="family-row">
+      <input type="hidden" name="existing_slug[]" value="<?= htmlspecialchars($slug) ?>">
       <div class="row-head">
-        <input type="text" name="slug[]" placeholder="slug-i-familjes" value="<?= htmlspecialchars($slug) ?>" pattern="[a-z0-9\-]+" required>
-        <input type="text" name="name[]" placeholder="Emri i familjes" value="<?= htmlspecialchars($name) ?>" required>
-        <button type="button" class="ghost danger" data-remove>×</button>
+        <input type="text" name="name[]" placeholder="Emri i familjes" value="<?= htmlspecialchars($name) ?>" autocomplete="off">
+        <button type="button" class="ghost danger" data-remove title="Fshi familjen">×</button>
       </div>
       <textarea name="members[]" rows="<?= max(3, count($members) + 1) ?>" placeholder="Një anëtar për rresht"><?= htmlspecialchars($membersText) ?></textarea>
+      <?php if ($shareUrl !== ''): ?>
+        <div class="share-row">
+          <span class="muted small">Linku për këtë familje:</span>
+          <a href="<?= htmlspecialchars($shareUrl) ?>" target="_blank" rel="noopener" class="share-link"><?= htmlspecialchars($shareUrl) ?></a>
+          <button type="button" class="ghost small-btn" data-copy="<?= htmlspecialchars($shareUrl) ?>">Kopjo</button>
+        </div>
+      <?php endif; ?>
     </div>
 <?php }
+
+function site_base_url(): string {
+    $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+    return $scheme . '://' . $host;
+}
 
 function render_styles(): void { ?>
 <style>
@@ -331,9 +371,15 @@ function render_styles(): void { ?>
   form { padding: 24px; max-width: 1100px; margin: 0 auto; }
   .toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
   .family-row { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin-bottom: 14px; }
-  .row-head { display: grid; grid-template-columns: 220px 1fr auto; gap: 10px; margin-bottom: 10px; }
-  .row-head input { padding: 9px 11px; border-radius: 7px; border: 1px solid var(--line); font-size: 14px; font-family: inherit; }
-  textarea { width: 100%; padding: 10px 12px; border-radius: 7px; border: 1px solid var(--line); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; line-height: 1.5; resize: vertical; }
+  .row-head { display: grid; grid-template-columns: 1fr auto; gap: 10px; margin-bottom: 10px; align-items: center; }
+  .row-head input { padding: 11px 13px; border-radius: 7px; border: 1px solid var(--line); font-size: 16px; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; }
+  .row-head input::placeholder { font-family: 'Outfit', sans-serif; font-size: 14px; color: #aaa; }
+  textarea { width: 100%; padding: 10px 12px; border-radius: 7px; border: 1px solid var(--line); font-family: 'Outfit', sans-serif; font-size: 14px; line-height: 1.5; resize: vertical; }
+  #rawJson { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+  .share-row { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-size: 13px; }
+  .share-link { color: var(--pink-dark); text-decoration: none; word-break: break-all; flex: 1 1 auto; min-width: 200px; }
+  .share-link:hover { text-decoration: underline; }
+  .small-btn { padding: 5px 12px !important; font-size: 12px !important; }
   button, a.ghost { font-family: inherit; }
   .primary { padding: 9px 14px; border-radius: 7px; border: none; background: var(--pink); color: #fff; font-size: 14px; cursor: pointer; }
   .primary:hover { background: var(--pink-dark); }
