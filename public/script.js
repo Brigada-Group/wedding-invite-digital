@@ -100,13 +100,18 @@ function setFamilyName(family) {
 }
 
 // ─── Hero video: PNG → intro (holds on last frame when it ends) ───
-// Gate playback on TWO conditions:
-//   1. The hero photo's fade-up animation has finished (user can see it).
-//   2. The video is buffered enough to play (`canplay`).
-// Without this, the envelope-close + invitation fade-in run in parallel
-// with the first ~900ms of the video, so by the time the photo is fully
-// visible the animation is half-over. On Safari iOS it's worse because
-// preload="auto" is mostly ignored — first play() has extra decode delay.
+// Start the video the instant the hero photo finishes its fade-up. The
+// video starts loading at DOMContentLoaded (see preloadHeroVideo) so by
+// the time the envelope animation is done and the photo is visible, the
+// video has usually buffered enough to start instantly.
+function preloadHeroVideo() {
+  const intro = document.getElementById('heroIntro');
+  if (!intro) return;
+  // Safari ignores preload="auto" — explicit load() nudges it to start
+  // buffering during the envelope animation rather than at first play().
+  try { intro.load(); } catch (e) {}
+}
+
 function initHeroVideo() {
   const hero = document.getElementById('heroPhoto');
   const intro = document.getElementById('heroIntro');
@@ -114,54 +119,31 @@ function initHeroVideo() {
 
   intro.addEventListener('error', () => console.warn('hero intro video failed to load'));
 
-  let photoVisible = false;
-  let videoReady = false;
   let started = false;
-
-  const tryStart = () => {
-    if (started || !photoVisible || !videoReady) return;
+  const startNow = () => {
+    if (started) return;
     started = true;
-    // Ensure the user sees frame 0 — Safari may have decoded a few frames
-    // silently while waiting on the canplay event.
-    try { intro.currentTime = 0; } catch (e) { /* iOS Safari can throw if not seekable yet */ }
+    // Guarantee the user sees frame 0 even if Safari decoded a few frames
+    // silently while buffering.
+    try { intro.currentTime = 0; } catch (e) {}
     hero.classList.add('intro-playing');
     intro.play().catch(() => {
-      // Autoplay blocked (very unlikely for muted+playsinline) — show PNG.
+      // Autoplay blocked — show PNG instead.
       hero.classList.remove('intro-playing');
     });
   };
 
-  // 1) Wait for the hero photo's fade-up to complete. animationend fires on
-  //    the .hero-photo element when its CSS animation finishes.
+  // Fire the moment the photo's fade-up CSS animation completes.
   const onAnimEnd = (e) => {
-    if (e && e.target !== hero) return; // ignore bubbled animations from children
-    photoVisible = true;
+    if (e.target !== hero) return; // ignore bubbled animations from children
     hero.removeEventListener('animationend', onAnimEnd);
-    tryStart();
+    startNow();
   };
   hero.addEventListener('animationend', onAnimEnd);
 
-  // 2) Fallback in case animationend never fires (reduced-motion users, or
-  //    the photo was already visible before init ran).
-  setTimeout(() => {
-    if (!photoVisible) {
-      photoVisible = true;
-      tryStart();
-    }
-  }, 1200);
-
-  // 3) Video readiness.
-  if (intro.readyState >= 2) {
-    videoReady = true;
-    tryStart();
-  } else {
-    intro.addEventListener('canplay', () => {
-      videoReady = true;
-      tryStart();
-    }, { once: true });
-    // Nudge Safari to actually start loading — preload="auto" is advisory.
-    try { intro.load(); } catch (e) {}
-  }
+  // Fallback if the animation never runs (reduced-motion users, already
+  // visible when init ran). Matches the fade-up timing (0.1s delay + 0.8s).
+  setTimeout(startNow, 1000);
 }
 
 // ─── Countdown Timer ───
@@ -385,4 +367,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initCalendarButton();
   initRSVP();
   initDecline();
+
+  // Kick off hero video buffering immediately so it's ready by the time
+  // the envelope animation finishes and the photo fades in.
+  preloadHeroVideo();
 });
