@@ -7,8 +7,9 @@ declare(strict_types=1);
 // Forge does atomic deploys (releases/<id>/public/edit/...). A config
 // file inside the release dir is wiped on every deploy, so look first
 // in the stable storage/ sibling that survives deploys.
+// edit/ → public/ → releases/<id>/ → <site>/  (4 levels up)
 $candidates = [
-    dirname(__DIR__, 3) . '/storage/config.local.php', // /home/forge/<site>/storage/config.local.php
+    dirname(__DIR__, 4) . '/storage/config.local.php', // /home/forge/<site>/storage/config.local.php
     __DIR__ . '/config.local.php',                     // local-dev fallback (gitignored)
 ];
 
