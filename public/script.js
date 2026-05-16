@@ -327,6 +327,7 @@ function initEnvelope() {
 
     stage.classList.add('intro-playing');
     intro.currentTime = 0;
+    intro.playbackRate = 1.5; // open ~33% faster without losing the animation
     intro.addEventListener('ended', revealInvitation, { once: true });
     intro.addEventListener('error', revealInvitation, { once: true });
     intro.play().catch(() => revealInvitation());
