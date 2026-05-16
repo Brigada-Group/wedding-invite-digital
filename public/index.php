@@ -1,3 +1,15 @@
+<?php
+// Auto-version static asset URLs with the file's mtime. Cloudflare, the
+// browser cache, and any intermediate proxy all see a fresh URL the
+// moment the file changes — and a stable URL until then, so caching
+// still works at full strength.
+function asset(string $path): string {
+    $abs = __DIR__ . '/' . ltrim($path, '/');
+    $v = @filemtime($abs);
+    $suffix = $v ? ('?v=' . $v) : '';
+    return htmlspecialchars($path . $suffix, ENT_QUOTES, 'UTF-8');
+}
+?>
 <!DOCTYPE html>
 <html lang="sq">
 <head>
@@ -8,26 +20,26 @@
   <meta name="theme-color" content="#FAF8F4">
 
   <!-- Critical assets: start loading these in parallel with the HTML parse. -->
-  <link rel="preload" as="image" href="Final-poster.webp" type="image/webp">
-  <link rel="preload" as="image" href="main.webp" type="image/webp">
-  <link rel="preload" as="video" href="main-intro.mp4" type="video/mp4">
+  <link rel="preload" as="image" href="<?= asset('Final-poster.webp') ?>" type="image/webp">
+  <link rel="preload" as="image" href="<?= asset('main.webp') ?>" type="image/webp">
+  <link rel="preload" as="video" href="<?= asset('main-intro.mp4') ?>" type="video/mp4">
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="<?= asset('style.css') ?>">
 </head>
 <body>
 
   <!-- ═══ ENVELOPE SCENE ═══ -->
   <div class="envelope-scene" id="envelopeScene">
-    <img src="frame_top.webp" alt="" class="frame-top" decoding="async">
-    <img src="frame_bottom.webp" alt="" class="frame-bottom" decoding="async">
+    <img src="<?= asset('frame_top.webp') ?>" alt="" class="frame-top" decoding="async">
+    <img src="<?= asset('frame_bottom.webp') ?>" alt="" class="frame-bottom" decoding="async">
     <div class="envelope-wrapper" id="envelopeWrapper">
       <div class="envelope-stage">
-        <img src="Final-poster.webp" alt="" class="envelope-fallback" decoding="async">
+        <img src="<?= asset('Final-poster.webp') ?>" alt="" class="envelope-fallback" decoding="async">
         <video
           id="envelopeIntro"
           class="envelope-video"
-          src="Final.mp4"
-          poster="Final-poster.webp"
+          src="<?= asset('Final.mp4') ?>"
+          poster="<?= asset('Final-poster.webp') ?>"
           muted
           playsinline
           preload="auto"
@@ -58,12 +70,12 @@
 
         <!-- Hero photo — still image fades into animated intro -->
         <div class="hero-photo" id="heroPhoto">
-          <img src="main.webp" alt="Loti & Matina" class="hero-fallback" decoding="async" fetchpriority="high">
+          <img src="<?= asset('main.webp') ?>" alt="Loti & Matina" class="hero-fallback" decoding="async" fetchpriority="high">
           <video
             id="heroIntro"
             class="hero-video hero-intro"
-            src="main-intro.mp4"
-            poster="main.webp"
+            src="<?= asset('main-intro.mp4') ?>"
+            poster="<?= asset('main.webp') ?>"
             muted
             playsinline
             preload="auto"
@@ -165,7 +177,7 @@
 
         <div class="map-section reveal">
           <div class="venue-image-container">
-            <img src="image.jpeg" alt="Hills Restaurant — Vendi i Dasmës" class="venue-image" loading="lazy" decoding="async">
+            <img src="<?= asset('image.jpeg') ?>" alt="Hills Restaurant — Vendi i Dasmës" class="venue-image" loading="lazy" decoding="async">
             <div class="venue-image-caption">Hills Restaurant</div>
           </div>
           <div class="map-container">
@@ -189,6 +201,6 @@
     </div>
   </div>
 
-  <script src="script.js?v=13"></script>
+  <script src="<?= asset('script.js') ?>"></script>
 </body>
 </html>
