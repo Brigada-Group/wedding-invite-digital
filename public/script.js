@@ -100,6 +100,13 @@ function setFamilyName(family) {
 }
 
 // ─── Hero video: PNG → intro (holds on last frame when it ends) ───
+// Gate playback on TWO conditions:
+//   1. The hero photo's fade-up animation has finished (user can see it).
+//   2. The video is buffered enough to play (`canplay`).
+// Without this, the envelope-close + invitation fade-in run in parallel
+// with the first ~900ms of the video, so by the time the photo is fully
+// visible the animation is half-over. On Safari iOS it's worse because
+// preload="auto" is mostly ignored — first play() has extra decode delay.
 function initHeroVideo() {
   const hero = document.getElementById('heroPhoto');
   const intro = document.getElementById('heroIntro');
@@ -107,16 +114,54 @@ function initHeroVideo() {
 
   intro.addEventListener('error', () => console.warn('hero intro video failed to load'));
 
-  const startIntro = () => {
+  let photoVisible = false;
+  let videoReady = false;
+  let started = false;
+
+  const tryStart = () => {
+    if (started || !photoVisible || !videoReady) return;
+    started = true;
+    // Ensure the user sees frame 0 — Safari may have decoded a few frames
+    // silently while waiting on the canplay event.
+    try { intro.currentTime = 0; } catch (e) { /* iOS Safari can throw if not seekable yet */ }
     hero.classList.add('intro-playing');
     intro.play().catch(() => {
-      // Autoplay blocked — drop the overlay so the PNG shows.
+      // Autoplay blocked (very unlikely for muted+playsinline) — show PNG.
       hero.classList.remove('intro-playing');
     });
   };
 
-  if (intro.readyState >= 2) startIntro();
-  else intro.addEventListener('canplay', startIntro, { once: true });
+  // 1) Wait for the hero photo's fade-up to complete. animationend fires on
+  //    the .hero-photo element when its CSS animation finishes.
+  const onAnimEnd = (e) => {
+    if (e && e.target !== hero) return; // ignore bubbled animations from children
+    photoVisible = true;
+    hero.removeEventListener('animationend', onAnimEnd);
+    tryStart();
+  };
+  hero.addEventListener('animationend', onAnimEnd);
+
+  // 2) Fallback in case animationend never fires (reduced-motion users, or
+  //    the photo was already visible before init ran).
+  setTimeout(() => {
+    if (!photoVisible) {
+      photoVisible = true;
+      tryStart();
+    }
+  }, 1200);
+
+  // 3) Video readiness.
+  if (intro.readyState >= 2) {
+    videoReady = true;
+    tryStart();
+  } else {
+    intro.addEventListener('canplay', () => {
+      videoReady = true;
+      tryStart();
+    }, { once: true });
+    // Nudge Safari to actually start loading — preload="auto" is advisory.
+    try { intro.load(); } catch (e) {}
+  }
 }
 
 // ─── Countdown Timer ───
