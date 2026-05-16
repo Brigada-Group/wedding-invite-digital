@@ -43,12 +43,13 @@ function getFamily() {
   return null;
 }
 
-// Turn the raw members[] array into pretty rows:
-//  - A lone "&" between two names collapses them into "A & B" on one row.
-//  - Lines wrapped in parentheses become notes that render under the list.
-//  - Anything else renders as its own row.
+// Turn the raw members[] array into rows + notes:
+//  - Parenthesized entries become notes rendered under the list.
+//  - Empty entries are dropped.
+//  - Everything else (names and "&" lines alike) renders as its own row,
+//    preserving the vertical spacing the editor intended.
 function shapeMembers(members) {
-  const cleaned = [];
+  const rows = [];
   const notes = [];
   for (const raw of members) {
     const s = String(raw).trim();
@@ -57,22 +58,7 @@ function shapeMembers(members) {
       const inner = s.slice(1, -1).trim();
       if (inner) notes.push(inner);
     } else {
-      cleaned.push(s);
-    }
-  }
-
-  const rows = [];
-  let i = 0;
-  while (i < cleaned.length) {
-    const cur = cleaned[i];
-    if (cur === '&') { i++; continue; } // orphan separator, skip
-    const isPair = cleaned[i + 1] === '&' && cleaned[i + 2] && cleaned[i + 2] !== '&';
-    if (isPair) {
-      rows.push(`${cur} & ${cleaned[i + 2]}`);
-      i += 3;
-    } else {
-      rows.push(cur);
-      i += 1;
+      rows.push(s);
     }
   }
   return { rows, notes };
@@ -98,6 +84,7 @@ function setFamilyName(family) {
     for (const text of rows) {
       const li = document.createElement('li');
       li.textContent = text;
+      if (text === '&') li.classList.add('separator');
       list.appendChild(li);
     }
     el.insertAdjacentElement('afterend', list);
