@@ -4,10 +4,25 @@
 
 declare(strict_types=1);
 
-$configPath = __DIR__ . '/config.local.php';
+// Forge does atomic deploys (releases/<id>/public/edit/...). A config
+// file inside the release dir is wiped on every deploy, so look first
+// in the stable storage/ sibling that survives deploys.
+$candidates = [
+    dirname(__DIR__, 3) . '/storage/config.local.php', // /home/forge/<site>/storage/config.local.php
+    __DIR__ . '/config.local.php',                     // local-dev fallback (gitignored)
+];
+
+$configPath = null;
+foreach ($candidates as $candidate) {
+    if (file_exists($candidate)) {
+        $configPath = $candidate;
+        break;
+    }
+}
+
 $examplePath = __DIR__ . '/config.example.php';
 
-if (file_exists($configPath)) {
+if ($configPath) {
     $config = require $configPath;
 } elseif (file_exists($examplePath)) {
     // Falling back to the example lets local `php -S` runs work without
