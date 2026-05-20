@@ -45,12 +45,12 @@ function downloadICS() {
 }
 
 function sendRSVP() {
-  const msg = encodeURIComponent('Konfirmojmë pjesëmarrjen. 🎉')
+  const msg = encodeURIComponent('Përshëndetje! Do të marrim pjesë në dasmën tuaj me gëzim! 🎉')
   window.open(`https://wa.me/38344434679?text=${msg}`, '_blank')
 }
 
 function declineRSVP() {
-  const msg = encodeURIComponent('Faleminderit për ftesën, por nuk mund të marrim pjesë. 💐')
+  const msg = encodeURIComponent('Përshëndetje! Ju falënderojmë për ftesën, por fatkeqësisht nuk do të mund të marrim pjesë. Ju urojmë gjithë të mirat! 💐')
   window.open(`https://wa.me/38344434679?text=${msg}`, '_blank')
 }
 

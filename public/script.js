@@ -219,7 +219,7 @@ function initRSVP() {
     e.preventDefault();
     const family = getFamily();
     const phone = family ? family.phone : FAMILY_PHONE;
-    const message = encodeURIComponent('Konfirmojmë pjesëmarrjen. 🎉');
+    const message = encodeURIComponent('Përshëndetje! Do të marrim pjesë në dasmën tuaj me gëzim! 🎉');
     window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
   });
 }
@@ -233,7 +233,7 @@ function initDecline() {
     e.preventDefault();
     const family = getFamily();
     const phone = family ? family.phone : FAMILY_PHONE;
-    const message = encodeURIComponent('Faleminderit për ftesën, por nuk mund të marrim pjesë. 💐');
+    const message = encodeURIComponent('Përshëndetje! Ju falënderojmë për ftesën, por fatkeqësisht nuk do të mund të marrim pjesë. Ju urojmë gjithë të mirat! 💐');
     window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
   });
 }
