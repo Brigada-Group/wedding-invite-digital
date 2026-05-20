@@ -218,11 +218,8 @@ function initRSVP() {
   btn.addEventListener('click', (e) => {
     e.preventDefault();
     const family = getFamily();
-    const name = family ? 'Familja ' + family.name : '';
     const phone = family ? family.phone : FAMILY_PHONE;
-    const message = encodeURIComponent(
-      `Përshëndetje! ${name} do të marrim pjesë në dasmën tuaj me gëzim! 🎉`
-    );
+    const message = encodeURIComponent('Konfirmojmë pjesëmarrjen. 🎉');
     window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
   });
 }
@@ -235,11 +232,8 @@ function initDecline() {
   btn.addEventListener('click', (e) => {
     e.preventDefault();
     const family = getFamily();
-    const name = family ? 'Familja ' + family.name : '';
     const phone = family ? family.phone : FAMILY_PHONE;
-    const message = encodeURIComponent(
-      `Përshëndetje! Ju falënderojmë për ftesën. Fatkeqësisht ${name} nuk do të mund të marrim pjesë në dasmën tuaj. Ju urojmë gjithë të mirat! 💐`
-    );
+    const message = encodeURIComponent('Faleminderit për ftesën, por nuk mund të marrim pjesë. 💐');
     window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
   });
 }
