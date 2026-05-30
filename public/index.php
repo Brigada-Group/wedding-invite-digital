@@ -182,7 +182,7 @@ function asset(string $path): string {
           </div>
           <div class="map-container">
             <iframe
-              src="https://maps.google.com/maps?q=42.3700709,21.1060237&hl=en&z=16&output=embed"
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3481.2168232819986!2d21.106019606503757!3d42.37015864053435!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13547f70a162d831%3A0x15b7d561b690fc41!2sThe%20Hills!5e0!3m2!1sen!2sus!4v1780175124169!5m2!1sen!2sus"
               allowfullscreen=""
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade">

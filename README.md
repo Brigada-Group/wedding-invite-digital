@@ -71,9 +71,35 @@ Outputs are written to the project root. Existing MP4s are skipped unless delete
 
 ## Deploying
 
-The site is pure static HTML/CSS/JS + MP4s + PNGs (~19 MB). It runs on any static host:
+The live site is PHP-served (the entry point is `public/index.php`, which renders with an `asset()` helper and reads family data from `public/families.json.php`), so it needs a PHP runtime — it is **not** a pure-static deploy.
 
-- **GitHub Pages** — enable in repo settings → Pages → source = `main` branch / root
-- **Netlify / Vercel / Cloudflare Pages** — connect the repo, no build step, publish directory = `/`
+**Host:** [Laravel Forge](https://forge.laravel.com) → server `Brigada` (`204.168.225.141`), PHP **8.3**, web root `public/`.
+**URL:** `https://wedding-invite-digital-kxdp0kig.on-forge.com/` (behind Cloudflare).
 
-No build step. No server. No database.
+### Deploy flow
+
+Pushing to `main` triggers a Forge **atomic (zero-downtime) deployment** — each deploy builds a fresh release directory and flips the `current` symlink. The deploy script is:
+
+```bash
+$CREATE_RELEASE()
+
+cd $FORGE_RELEASE_DIRECTORY
+
+$ACTIVATE_RELEASE()
+
+( flock -w 10 9 || exit 1
+    echo 'Restarting FPM...'; sudo -S service $FORGE_PHP_FPM reload ) 9>/tmp/fpmlock
+```
+
+> [!IMPORTANT]
+> The final **FPM reload line is required** and must not be removed. This server runs PHP with `opcache.validate_timestamps=0`, and atomic releases keep the `current` symlink path constant — so OPcache serves the *old* compiled `index.php` until PHP-FPM is reloaded. Without that line, a deploy updates static assets (`script.js`, `style.css`) but leaves `index.php` stale. Reloading FPM clears the cache so the new release is served.
+
+### Local preview
+
+Because the site is PHP, serve the `public/` directory with PHP (not `http.server`):
+
+```bash
+php -S localhost:4173 -t public
+```
+
+Then open `http://localhost:4173/`.
