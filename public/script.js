@@ -195,7 +195,7 @@ function initCalendarButton() {
       'SUMMARY:Dasma e Loti & Matina',
       'DESCRIPTION:Jeni të ftuar të festoni dasmën e Loti & Matina Gashi',
       'LOCATION:Hills Restaurant\\, Ferizaj\\, Kosovë',
-      'GEO:42.3703;21.1558',
+      'GEO:42.3700709;21.1060237',
       'END:VEVENT',
       'END:VCALENDAR'
     ].join('\r\n');
