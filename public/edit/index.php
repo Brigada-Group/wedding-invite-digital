@@ -1,6 +1,13 @@
 <?php
 declare(strict_types=1);
 
+// Editor disabled. Family data is now baked into the deploy
+// (public/families.data.json, inlined by ../index.php). To change names,
+// edit that file and redeploy.
+http_response_code(410);
+header('Content-Type: text/plain; charset=utf-8');
+exit('The editor has been disabled. Edit public/families.data.json and redeploy.');
+
 $ctx = require __DIR__ . '/_bootstrap.php';
 $config = $ctx['config'];
 $familiesFile = $ctx['families_file'];

@@ -201,6 +201,13 @@ function asset(string $path): string {
     </div>
   </div>
 
+  <!-- Family data is baked in server-side and delivered inline. The page is
+       served from "/" (allowed by nginx), whereas a direct fetch of a *.php
+       endpoint is dropped by the server's scanner-block rule — so inlining is
+       the only reliable delivery path. Edit public/families.data.json + redeploy. -->
+  <script>
+    window.__FAMILIES__ = <?= (@file_get_contents(__DIR__ . '/families.data.json') ?: '{}') ?>;
+  </script>
   <script src="<?= asset('script.js') ?>"></script>
 </body>
 </html>

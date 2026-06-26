@@ -1,17 +1,13 @@
 // ─── Family ID mapping ───
-// Source of truth: storage/families.json, served by /families.json.php
-// and edited via /edit/. The map below is populated on page load.
+// Source of truth: public/families.data.json, baked into the page server-side
+// (see index.php) and exposed as window.__FAMILIES__. We can't fetch a *.php
+// endpoint at runtime — the server's scanner-block rule drops any direct
+// request to a URL ending in .php — so the data is delivered inline instead.
 let FAMILIES = {};
 
-async function loadFamilies() {
-  try {
-    const res = await fetch('/families.json.php', { cache: 'no-store' });
-    if (!res.ok) return;
-    const data = await res.json();
-    if (data && typeof data === 'object') FAMILIES = data;
-  } catch (err) {
-    console.warn('Could not load families.json — personalization disabled.', err);
-  }
+function loadFamilies() {
+  const data = window.__FAMILIES__;
+  if (data && typeof data === 'object') FAMILIES = data;
 }
 
 // ─── Phone numbers per invitee group ───
@@ -352,11 +348,10 @@ function initEnvelope() {
 
 // ─── Init ───
 document.addEventListener('DOMContentLoaded', () => {
-  // Render once with whatever data we have (probably none on first paint),
-  // then again after the fetch resolves. Envelope animation takes >1s so
-  // the second render almost always lands before the invitation is visible.
+  // Family data is inlined in the page (window.__FAMILIES__), so it's
+  // available synchronously — one render with the data is enough.
+  loadFamilies();
   setFamilyName(getFamily());
-  loadFamilies().then(() => setFamilyName(getFamily()));
 
   initEnvelope();
   initCalendarButton();
